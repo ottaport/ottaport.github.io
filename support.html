@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Contact OTTAPORT Support for general help, commission and paid-service enquiries, or reports.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="favicon.svg">
+  <link rel="canonical" href="https://ottaport.github.io/support.html">
+  <title>Support | OTTAPORT</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #16181d;
+      --muted: #656b77;
+      --blue: #354b9c;
+      --blue-dark: #293d86;
+      --line: #e5e7ed;
+      --paper: #fff;
+      --page-width: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { min-width: 320px; scroll-behavior: smooth; background: var(--paper); }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body.form-open, body.menu-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .wrap { width: min(var(--page-width), calc(100% - 56px)); margin-inline: auto; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,.94);
+      border-bottom: 1px solid rgba(229,231,237,.9);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+    .topbar-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 26px; }
+    .brand { display: inline-block; flex: 0 0 auto; font-size: 28px; font-weight: 760; letter-spacing: -1.8px; line-height: 1; }
+    .brand span { color: #91a5ee; font-weight: 500; }
+    .desktop-nav { display: flex; align-items: center; gap: clamp(18px, 2.8vw, 34px); }
+    .desktop-nav a, .footer-nav a, .socials a { transition: color .18s ease; }
+    .desktop-nav a { position: relative; padding: 9px 0; color: #515662; font-size: 14px; }
+    .desktop-nav a::after { position: absolute; right: 0; bottom: 2px; left: 0; height: 1px; content: ""; background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform .22s ease; }
+    .desktop-nav a:hover, .desktop-nav a[aria-current="page"] { color: var(--blue); }
+    .desktop-nav a:hover::after { transform: scaleX(1); }
+    .menu-toggle { display: none; width: 42px; height: 42px; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--ink); cursor: pointer; }
+    .menu-icon { position: relative; display: block; width: 23px; height: 17px; margin: auto; }
+    .menu-icon::before, .menu-icon::after { position: absolute; left: 0; width: 23px; height: 2px; content: ""; background: currentColor; transition: top .2s ease, transform .2s ease; }
+    .menu-icon::before { top: 4px; }
+    .menu-icon::after { top: 12px; }
+    .menu-toggle[aria-expanded="true"] .menu-icon::before { top: 8px; transform: rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] .menu-icon::after { top: 8px; transform: rotate(-45deg); }
+    .mobile-menu { display: none; }
+
+    main { min-height: 55vh; }
+    .content { padding-top: clamp(76px, 10vw, 126px); padding-bottom: 82px; }
+    .hero { max-width: 850px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 20px; color: var(--blue); font-size: 12px; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+    .eyebrow::before { width: 24px; height: 2px; content: ""; background: currentColor; }
+    h1 { max-width: 780px; margin: 0; font-size: clamp(44px, 6.1vw, 72px); font-weight: 720; line-height: 1.01; letter-spacing: -.065em; }
+    .intro { max-width: 670px; margin: 25px 0 0; color: var(--muted); font-size: clamp(16px, 1.65vw, 18px); line-height: 1.8; }
+    .actions { display: flex; margin-top: 32px; }
+    .button {
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding: 0 23px;
+      border: 1px solid var(--blue);
+      border-radius: 7px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 650;
+      cursor: pointer;
+      box-shadow: 0 5px 0 rgba(53,75,156,0);
+      transition: background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+    }
+    .button svg { width: 17px; height: 17px; transition: transform .18s ease; }
+    .button:hover { transform: translateY(-2px); border-color: var(--blue-dark); background: var(--blue-dark); box-shadow: 0 7px 16px rgba(41,61,134,.16); }
+    .button:hover svg { transform: translateX(3px); }
+    .button:active { transform: translateY(0); box-shadow: none; }
+    .button:focus-visible, .menu-toggle:focus-visible, .close-form:focus-visible, a:focus-visible { outline: 3px solid #aab8f2; outline-offset: 4px; }
+
+    .details { margin-top: clamp(68px, 9vw, 106px); padding-top: 28px; border-top: 1px solid var(--line); }
+    .details-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 27px; }
+    .details h2 { margin: 0; font-size: clamp(25px, 3vw, 32px); font-weight: 680; letter-spacing: -.05em; }
+    .request-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+    .request-type { min-width: 0; padding: 23px 25px 8px 0; }
+    .request-type + .request-type { padding-left: 25px; border-left: 1px solid var(--line); }
+    .request-type h3 { margin: 0 0 10px; font-size: 16px; font-weight: 680; letter-spacing: -.025em; }
+    .request-type p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.8; }
+
+    footer { border-top: 1px solid var(--line); }
+    .footer-inner { padding: 29px 0 24px; }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 28px; }
+    .footer-top .brand { font-size: 25px; }
+    .footer-copy { margin: 11px 0 0; color: #737987; font-size: 13px; line-height: 1.8; }
+    .socials { display: flex; flex-wrap: wrap; gap: 22px; color: #515662; font-size: 13px; }
+    .socials a:hover, .footer-nav a:hover { color: var(--blue); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 25px; padding-top: 17px; border-top: 1px solid var(--line); color: #737987; font-size: 12px; }
+    .footer-nav { display: flex; gap: 20px; }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 72px 0 0;
+      z-index: 19;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 14px 28px 30px;
+      background: rgba(255,255,255,.985);
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-7px);
+      transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+    }
+    .mobile-menu.is-open { visibility: visible; opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .mobile-menu a { padding: 19px 0; border-bottom: 1px solid var(--line); font-size: 18px; letter-spacing: -.02em; }
+
+    .form-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      background: #fff;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s ease, visibility .22s ease;
+    }
+    .form-overlay.is-open { visibility: visible; opacity: 1; pointer-events: auto; }
+    .form-header { min-height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 20px; border-bottom: 1px solid var(--line); background: #fff; }
+    .form-title { font-size: 14px; font-weight: 680; letter-spacing: -.01em; }
+    .close-form { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 7px; background: #fff; color: var(--ink); font-size: 25px; line-height: 1; cursor: pointer; transition: background .18s ease, transform .18s ease; }
+    .close-form:hover { background: #f4f5f8; transform: rotate(90deg); }
+    .form-frame { width: 100%; flex: 1 1 auto; min-height: 0; border: 0; background: #fff; }
+    .form-loading { padding: 12px; text-align: center; color: var(--muted); font-size: 13px; }
+
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .65s ease, transform .65s cubic-bezier(.2,.7,.2,1); }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .request-type:nth-child(2) { transition-delay: .08s; }
+    .request-type:nth-child(3) { transition-delay: .16s; }
+
+    @media (max-width: 760px) {
+      .wrap { width: calc(100% - 40px); }
+      .topbar-inner { min-height: 62px; }
+      .brand { font-size: 26px; }
+      .desktop-nav { display: none; }
+      .menu-toggle { display: block; }
+      .mobile-menu { inset-block-start: 62px; padding-inline: 20px; }
+      .content { padding-top: 69px; padding-bottom: 66px; }
+      .eyebrow { margin-bottom: 17px; }
+      h1 { font-size: clamp(43px, 11vw, 60px); }
+      .intro { margin-top: 20px; font-size: 16px; line-height: 1.75; }
+      .actions { margin-top: 26px; }
+      .button { min-height: 50px; }
+      .details { margin-top: 69px; padding-top: 24px; }
+      .details-heading { margin-bottom: 22px; }
+      .request-grid { grid-template-columns: 1fr; }
+      .request-type, .request-type + .request-type { padding: 19px 0 20px; border-left: 0; border-bottom: 1px solid var(--line); }
+      .request-type h3 { margin-bottom: 7px; }
+      .footer-top { flex-direction: column; }
+      .socials { gap: 19px; }
+      .form-header { min-height: 58px; padding-inline: 14px; }
+    }
+    @media (max-width: 380px) {
+      .wrap { width: calc(100% - 32px); }
+      h1 { font-size: 42px; }
+      .button { width: 100%; }
+      .footer-nav { gap: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html#home" aria-label="OTTAPORT home">otta<span>port</span></a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#works">Works</a>
+        <a href="index.html#about">About Us</a>
+        <a href="index.html#notification">Notification</a>
+        <a href="index.html#articles">Articles</a>
+      </nav>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span class="menu-icon" aria-hidden="true"></span></button>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" aria-hidden="true" inert>
+    <a href="index.html#home">Home</a>
+    <a href="index.html#works">Works</a>
+    <a href="index.html#about">About Us</a>
+    <a href="index.html#notification">Notification</a>
+    <a href="index.html#articles">Articles</a>
+  </nav>
+
+  <main>
+    <div class="wrap content">
+      <section class="hero reveal" aria-labelledby="pageTitle">
+        <p class="eyebrow">OTTAPORT Support</p>
+        <h1 id="pageTitle">How can we help?</h1>
+        <p class="intro">Have a question, need help with a service, or want to report an issue? Send our team a request and include the details we need to help you.</p>
+        <div class="actions">
+          <button class="button" type="button" id="openSupportForm">Create Ticket
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12h14M12.5 5.5 19 12l-6.5 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="details reveal" aria-labelledby="request-types">
+        <div class="details-heading"><h2 id="request-types">Request types</h2></div>
+        <div class="request-grid">
+          <article class="request-type reveal">
+            <h3>Help &amp; Contact</h3>
+            <p>General questions, website issues, or help with OTTAPORT services.</p>
+          </article>
+          <article class="request-type reveal">
+            <h3>Commission &amp; Paid</h3>
+            <p>Commission requests, payment questions, or paid-service enquiries.</p>
+          </article>
+          <article class="request-type reveal">
+            <h3>Report &amp; Legal Action</h3>
+            <p>Reports, policy concerns, or matters that need formal review.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="footer-top">
+        <div><a class="brand" href="index.html#home" aria-label="OTTAPORT home">otta<span>port</span></a><p class="footer-copy">Official website of OTTAPORT.<br>Made in Kalahandi, Odisha.</p></div>
+        <nav class="socials" aria-label="OTTAPORT social links">
+          <a href="https://discord.com/invite/TK2JsrdjGj" target="_blank" rel="noopener noreferrer">Discord</a>
+          <a href="https://www.instagram.com/ottaport?stkn=MTB3eW9ibGQxb2ZlZw==" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://www.youtube.com/@OTTAPORT" target="_blank" rel="noopener noreferrer">YouTube</a>
+        </nav>
+      </div>
+      <div class="footer-bottom"><span>© OTTAPORT 2026</span><nav class="footer-nav" aria-label="Footer navigation"><a href="index.html#terms">Terms</a><a href="index.html#privacy">Privacy</a></nav></div>
+    </div>
+  </footer>
+
+  <section class="form-overlay" id="supportFormOverlay" role="dialog" aria-modal="true" aria-labelledby="formTitle" aria-hidden="true" inert>
+    <div class="form-header"><span class="form-title" id="formTitle">OTTAPORT Support Form</span><button class="close-form" id="closeSupportForm" type="button" aria-label="Close support form">×</button></div>
+    <div class="form-loading" id="formLoading" aria-live="polite">Loading form…</div>
+    <iframe class="form-frame" id="supportFormFrame" title="OTTAPORT support request form" data-src="https://docs.google.com/forms/d/e/1FAIpQLScY6rkbUQ7n-FsAE3CYcvmJ9yMPygv5atek09Bnro2sEBDUhg/viewform?embedded=true" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="clipboard-write"></iframe>
+  </section>
+
+  <script>
+    (() => {
+      const overlay = document.getElementById('supportFormOverlay');
+      const openButton = document.getElementById('openSupportForm');
+      const closeButton = document.getElementById('closeSupportForm');
+      const iframe = document.getElementById('supportFormFrame');
+      const loading = document.getElementById('formLoading');
+      const menuToggle = document.getElementById('menuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      let previousFocus = null;
+      let formStarted = false;
+
+      function setMenu(open) {
+        menuToggle.setAttribute('aria-expanded', String(open));
+        menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        mobileMenu.classList.toggle('is-open', open);
+        mobileMenu.setAttribute('aria-hidden', String(!open));
+        if (open) mobileMenu.removeAttribute('inert');
+        else mobileMenu.setAttribute('inert', '');
+        document.body.classList.toggle('menu-open', open);
+      }
+
+      function openForm() {
+        setMenu(false);
+        previousFocus = document.activeElement;
+        overlay.classList.add('is-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        overlay.removeAttribute('inert');
+        document.querySelector('header').setAttribute('inert', '');
+        document.querySelector('main').setAttribute('inert', '');
+        document.querySelector('footer').setAttribute('inert', '');
+        document.body.classList.add('form-open');
+        closeButton.focus({preventScroll: true});
+        if (!formStarted) {
+          formStarted = true;
+          iframe.src = iframe.dataset.src;
+        }
+      }
+
+      function closeForm() {
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        overlay.setAttribute('inert', '');
+        document.querySelector('header').removeAttribute('inert');
+        document.querySelector('main').removeAttribute('inert');
+        document.querySelector('footer').removeAttribute('inert');
+        document.body.classList.remove('form-open');
+        if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus({preventScroll: true});
+      }
+
+      openButton.addEventListener('click', openForm);
+      closeButton.addEventListener('click', closeForm);
+      menuToggle.addEventListener('click', () => setMenu(menuToggle.getAttribute('aria-expanded') !== 'true'));
+      mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
+      iframe.addEventListener('load', () => { loading.hidden = true; });
+      window.setTimeout(() => { loading.hidden = true; }, 12000);
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+          if (overlay.classList.contains('is-open')) closeForm();
+          else if (mobileMenu.classList.contains('is-open')) { setMenu(false); menuToggle.focus({preventScroll: true}); }
+        }
+      });
+
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {threshold: 0.12, rootMargin: '0px 0px -20px 0px'});
+        document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
+      } else {
+        document.querySelectorAll('.reveal').forEach(element => element.classList.add('is-visible'));
+      }
+    })();
+  </script>
+</body>
+</html>
