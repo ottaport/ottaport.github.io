@@ -10,16 +10,20 @@
   <link rel="apple-touch-icon" href="favicon.svg">
   <link rel="canonical" href="https://ottaport.github.io/support.html">
   <title>Support | OTTAPORT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: light;
-      --ink: #16181d;
-      --muted: #656b77;
-      --blue: #354b9c;
-      --blue-dark: #293d86;
-      --line: #e5e7ed;
-      --paper: #fff;
-      --page-width: 1120px;
+      --ink: #0b0d12;
+      --muted: #687080;
+      --blue: #8ca4f8;
+      --blue-dark: #5f70be;
+      --line: rgba(12,16,24,.09);
+      --paper: #f7f8fb;
+      --page-width: 1240px;
+      --ease: cubic-bezier(.16,1,.3,1);
     }
     * { box-sizing: border-box; }
     html { min-width: 320px; scroll-behavior: smooth; background: var(--paper); }
@@ -27,8 +31,8 @@
       margin: 0;
       min-height: 100vh;
       color: var(--ink);
-      background: var(--paper);
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(circle at 90% 0%, rgba(205,216,255,.44), transparent 28rem), var(--paper);
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
@@ -40,29 +44,47 @@
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 20;
-      background: rgba(255,255,255,.94);
-      border-bottom: 1px solid rgba(229,231,237,.9);
-      -webkit-backdrop-filter: blur(14px);
-      backdrop-filter: blur(14px);
+      z-index: 1000;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,.42);
+      background: rgba(255,255,255,.18);
+      -webkit-backdrop-filter: blur(20px) saturate(145%);
+      backdrop-filter: blur(20px) saturate(145%);
+      box-shadow: 0 10px 35px rgba(12,16,24,.06), inset 0 -1px 0 rgba(255,255,255,.48);
     }
-    .topbar-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 26px; }
-    .brand { display: inline-block; flex: 0 0 auto; font-size: 28px; font-weight: 760; letter-spacing: -1.8px; line-height: 1; }
-    .brand span { color: #91a5ee; font-weight: 500; }
-    .desktop-nav { display: flex; align-items: center; gap: clamp(18px, 2.8vw, 34px); }
-    .desktop-nav a, .footer-nav a, .socials a { transition: color .18s ease; }
-    .desktop-nav a { position: relative; padding: 9px 0; color: #515662; font-size: 14px; }
-    .desktop-nav a::after { position: absolute; right: 0; bottom: 2px; left: 0; height: 1px; content: ""; background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform .22s ease; }
-    .desktop-nav a:hover, .desktop-nav a[aria-current="page"] { color: var(--blue); }
-    .desktop-nav a:hover::after { transform: scaleX(1); }
-    .menu-toggle { display: none; width: 42px; height: 42px; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--ink); cursor: pointer; }
-    .menu-icon { position: relative; display: block; width: 23px; height: 17px; margin: auto; }
-    .menu-icon::before, .menu-icon::after { position: absolute; left: 0; width: 23px; height: 2px; content: ""; background: currentColor; transition: top .2s ease, transform .2s ease; }
-    .menu-icon::before { top: 4px; }
-    .menu-icon::after { top: 12px; }
-    .menu-toggle[aria-expanded="true"] .menu-icon::before { top: 8px; transform: rotate(45deg); }
-    .menu-toggle[aria-expanded="true"] .menu-icon::after { top: 8px; transform: rotate(-45deg); }
-    .mobile-menu { display: none; }
+    .topbar-inner { width: min(100%, var(--page-width)); min-height: 100%; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: baseline; flex: 0 0 auto; font-size: 25px; font-weight: 700; letter-spacing: -.055em; line-height: 1; white-space: nowrap; transition: transform .3s var(--ease); }
+    .brand:hover { transform: translateY(-1px); }
+    .brand .otta { color: var(--ink); }
+    .brand .port { color: var(--blue); font-weight: 500; }
+    .desktop-nav { display: flex; align-items: center; gap: 24px; margin-left: auto; }
+    .desktop-nav a, .footer-nav a, .socials a { transition: color .25s var(--ease); }
+    .desktop-nav a { position: relative; padding: 7px 0; color: #444b59; font-size: 13px; font-weight: 600; }
+    .desktop-nav a::after { content: ''; position: absolute; left: 0; right: 100%; bottom: 0; height: 1px; background: currentColor; transition: right .25s var(--ease); }
+    .desktop-nav a:hover, .desktop-nav a[aria-current="page"] { color: var(--ink); }
+    .desktop-nav a:hover::after, .desktop-nav a[aria-current="page"]::after { right: 0; }
+    .menu-toggle { width: 42px; height: 42px; display: none; place-items: center; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--ink); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .menu-toggle:hover { background: transparent; }
+    .menu-icon { position: relative; width: 24px; height: 12px; display: block; }
+    .menu-icon span { position: absolute; left: 0; width: 24px; height: 2px; border-radius: 999px; background: currentColor; transform-origin: center; transition: transform .35s var(--ease); }
+    .menu-icon span:first-child { top: 1px; }
+    .menu-icon span:last-child { bottom: 1px; }
+    .menu-toggle.is-open .menu-icon span:first-child { transform: translateY(4px) rotate(45deg); }
+    .menu-toggle.is-open .menu-icon span:last-child { transform: translateY(-4px) rotate(-45deg); }
+    .mobile-menu { position: fixed; inset: 60px 0 0; z-index: 900; display: flex; align-items: center; justify-content: center; padding: 28px 24px 40px; background: #fff; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-8px); transition: opacity .35s var(--ease), transform .35s var(--ease), visibility .35s var(--ease); }
+    .mobile-menu.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+    .mobile-menu-inner { width: 100%; max-width: 760px; display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; transform: translateY(-10px); transition: transform .58s var(--ease); }
+    .mobile-menu.is-open .mobile-menu-inner { transform: none; }
+    .mobile-menu a { padding: 6px 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(34px, 9vw, 68px); line-height: 1.02; letter-spacing: -.055em; font-weight: 700; color: var(--ink); opacity: 0; transform: translateY(18px) scale(.985); transition: opacity .48s var(--ease), transform .58s var(--ease), color .3s ease; border: 0; }
+    .mobile-menu.is-open a { opacity: 1; transform: none; }
+    .mobile-menu.is-open a:nth-child(1) { transition-delay: .08s; }
+    .mobile-menu.is-open a:nth-child(2) { transition-delay: .14s; }
+    .mobile-menu.is-open a:nth-child(3) { transition-delay: .20s; }
+    .mobile-menu.is-open a:nth-child(4) { transition-delay: .26s; }
+    .mobile-menu.is-open a:nth-child(5) { transition-delay: .32s; }
+    .mobile-menu a:hover { color: var(--blue-dark); }
 
     main { min-height: 55vh; }
     .content { padding-top: clamp(76px, 10vw, 126px); padding-bottom: 82px; }
@@ -114,24 +136,6 @@
     .footer-bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 25px; padding-top: 17px; border-top: 1px solid var(--line); color: #737987; font-size: 12px; }
     .footer-nav { display: flex; gap: 20px; }
 
-    .mobile-menu {
-      position: fixed;
-      inset: 72px 0 0;
-      z-index: 19;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      padding: 14px 28px 30px;
-      background: rgba(255,255,255,.985);
-      visibility: hidden;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-7px);
-      transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
-    }
-    .mobile-menu.is-open { visibility: visible; opacity: 1; pointer-events: auto; transform: translateY(0); }
-    .mobile-menu a { padding: 19px 0; border-bottom: 1px solid var(--line); font-size: 18px; letter-spacing: -.02em; }
-
     .form-overlay {
       position: fixed;
       inset: 0;
@@ -155,18 +159,25 @@
     .form-frame { width: 100%; flex: 1 1 auto; min-height: 0; border: 0; background: #fff; }
     .form-loading { padding: 12px; text-align: center; color: var(--muted); font-size: 13px; }
 
-    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .65s ease, transform .65s cubic-bezier(.2,.7,.2,1); }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .72s var(--ease), transform .82s var(--ease); }
     .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .hero h1 { animation: headingIn .85s var(--ease) .06s both; }
+    .hero .eyebrow { animation: headingIn .7s var(--ease) both; }
+    .hero .intro { animation: headingIn .85s var(--ease) .13s both; }
+    .hero .actions { animation: headingIn .85s var(--ease) .2s both; }
+    .button svg { flex: 0 0 auto; }
+    @keyframes headingIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
     .request-type:nth-child(2) { transition-delay: .08s; }
     .request-type:nth-child(3) { transition-delay: .16s; }
 
-    @media (max-width: 760px) {
+    @media (max-width: 899px) {
       .wrap { width: calc(100% - 40px); }
-      .topbar-inner { min-height: 62px; }
-      .brand { font-size: 26px; }
+      .topbar { height: 56px; }
+      .topbar-inner { padding: 0 18px; }
+      .brand { font-size: 23px; }
       .desktop-nav { display: none; }
-      .menu-toggle { display: block; }
-      .mobile-menu { inset-block-start: 62px; padding-inline: 20px; }
+      .menu-toggle { display: grid; }
+      .mobile-menu { inset-block-start: 56px; padding-inline: 20px; }
       .content { padding-top: 69px; padding-bottom: 66px; }
       .eyebrow { margin-bottom: 17px; }
       h1 { font-size: clamp(43px, 11vw, 60px); }
@@ -198,7 +209,7 @@
 <body>
   <header class="topbar">
     <div class="wrap topbar-inner">
-      <a class="brand" href="index.html#home" aria-label="OTTAPORT home">otta<span>port</span></a>
+      <a class="brand" href="index.html#home" aria-label="OTTAPORT home"><span class="otta">otta</span><span class="port">port</span></a>
       <nav class="desktop-nav" aria-label="Primary navigation">
         <a href="index.html#home">Home</a>
         <a href="index.html#works">Works</a>
@@ -206,16 +217,18 @@
         <a href="index.html#notification">Notification</a>
         <a href="index.html#articles">Articles</a>
       </nav>
-      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span class="menu-icon" aria-hidden="true"></span></button>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span class="menu-icon" aria-hidden="true"><span></span><span></span></span></button>
     </div>
   </header>
 
   <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" aria-hidden="true" inert>
-    <a href="index.html#home">Home</a>
-    <a href="index.html#works">Works</a>
-    <a href="index.html#about">About Us</a>
-    <a href="index.html#notification">Notification</a>
-    <a href="index.html#articles">Articles</a>
+    <div class="mobile-menu-inner">
+      <a href="index.html#home">Home</a>
+      <a href="index.html#works">Works</a>
+      <a href="index.html#about">About Us</a>
+      <a href="index.html#notification">Notification</a>
+      <a href="index.html#articles">Articles</a>
+    </div>
   </nav>
 
   <main>
@@ -254,7 +267,7 @@
   <footer>
     <div class="wrap footer-inner">
       <div class="footer-top">
-        <div><a class="brand" href="index.html#home" aria-label="OTTAPORT home">otta<span>port</span></a><p class="footer-copy">Official website of OTTAPORT.<br>Made in Kalahandi, Odisha.</p></div>
+        <div><a class="brand" href="index.html#home" aria-label="OTTAPORT home"><span class="otta">otta</span><span class="port">port</span></a><p class="footer-copy">Official website of OTTAPORT.<br>Made in Kalahandi, Odisha.</p></div>
         <nav class="socials" aria-label="OTTAPORT social links">
           <a href="https://discord.com/invite/TK2JsrdjGj" target="_blank" rel="noopener noreferrer">Discord</a>
           <a href="https://www.instagram.com/ottaport?stkn=MTB3eW9ibGQxb2ZlZw==" target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -285,6 +298,7 @@
 
       function setMenu(open) {
         menuToggle.setAttribute('aria-expanded', String(open));
+        menuToggle.classList.toggle('is-open', open);
         menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
         mobileMenu.classList.toggle('is-open', open);
         mobileMenu.setAttribute('aria-hidden', String(!open));
