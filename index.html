@@ -6,24 +6,25 @@
   <meta name="theme-color" content="#f7f8fb">
   <meta name="application-name" content="Ottaport">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta name="description" content="Ottaport is an independent films and animation studio founded by Milan Naik in Kalahandi, Odisha. Explore films, animation, studio updates and articles.">
+  <meta name="description" content="Ottaport is an independent film and animation studio founded by Milan Naik in Kalahandi, Odisha. Explore original stories, creative projects and studio updates.">
   <meta name="author" content="Milan Naik">
+  <meta name="keywords" content="Ottaport, films, animation, independent studio, original stories, creative projects, Kalahandi, Odisha">
   <meta name="robots" content="index,follow,max-image-preview:large,max-video-preview:-1">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="favicon.svg">
   <link rel="canonical" href="https://ottaport.github.io/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Ottaport | Films & Animation">
-  <meta property="og:description" content="Official Ottaport website for films, animation, studio updates and articles, founded by Milan Naik.">
+  <meta property="og:description" content="The official Ottaport website for independent films, animation, original stories and creative projects.">
   <meta property="og:site_name" content="Ottaport">
   <meta property="og:url" content="https://ottaport.github.io/">
-  <meta property="og:image" content="hero-poster.jpg">
+  <meta property="og:image" content="https://ottaport.github.io/hero-poster.jpg">
   <meta property="og:image:alt" content="Ottaport films and animation studio artwork">
   <meta property="og:locale" content="en_IN">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ottaport | Films & Animation">
-  <meta name="twitter:description" content="Official Ottaport website for films, animation, studio updates and articles.">
-  <meta name="twitter:image" content="hero-poster.jpg">
+  <meta name="twitter:description" content="The official Ottaport website for independent films, animation, original stories and creative projects.">
+  <meta name="twitter:image" content="https://ottaport.github.io/hero-poster.jpg">
   <title>Ottaport | Films & Animation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -274,9 +275,17 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
       z-index: -3;
+      overflow: hidden;
       background: linear-gradient(140deg, #17191f, #4c557a);
+    }
+    .hero-media > video,
+    .hero-media > img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .hero-overlay {
       position: absolute;
@@ -495,6 +504,15 @@
       border-top: 1px solid var(--line);
       color: var(--muted);
       font-size: 14px;
+    }
+    .news-copy { white-space: pre-line; }
+    .external-content-frame {
+      display: block;
+      width: 100%;
+      min-height: 320px;
+      border: 0;
+      overflow: hidden;
+      background: transparent;
     }
 
     .text-link {
@@ -786,7 +804,7 @@
         "@type":"Organization",
         "name":"Ottaport",
         "url":"https://ottaport.github.io/",
-        "logo":"logo.svg",
+        "logo":"https://ottaport.github.io/logo.svg",
         "description":"Independent films, animation and creative work founded by Milan Naik in Kalahandi, Odisha.",
         "founder":{"@type":"Person","name":"Milan Naik"},
         "sameAs":[
@@ -817,7 +835,7 @@
         <a href="#works" data-route="works">Works</a>
         <a href="#about" data-route="about">About Us</a>
         <a href="#notification" data-route="notification">Notification</a>
-        <a href="#articles" data-route="articles">Articals</a>
+        <a href="#articles" data-route="articles">Articles</a>
       </nav>
 
       <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
@@ -832,7 +850,7 @@
       <a href="#works" data-route="works">Works</a>
       <a href="#about" data-route="about">About Us</a>
       <a href="#notification" data-route="notification">Notification</a>
-      <a href="#articles" data-route="articles">Articals</a>
+      <a href="#articles" data-route="articles">Articles</a>
     </div>
   </nav>
 
@@ -840,9 +858,7 @@
     <section class="view is-active" id="view-home" aria-labelledby="hero-title">
       <div class="home">
         <section class="hero">
-          <video class="hero-media" autoplay muted loop playsinline preload="metadata" poster="hero-poster.jpg" aria-hidden="true">
-            <source src="hero.mp4" type="video/mp4">
-          </video>
+          <div class="hero-media" id="heroMediaHost" aria-hidden="true"></div>
           <div class="hero-overlay" aria-hidden="true"></div>
           <div class="hero-content">
             <span class="hero-kicker">Ottaport · Films &amp; Animation</span>
@@ -906,7 +922,7 @@
 
     <section class="view" id="view-articles" aria-labelledby="articles-title">
       <div class="page-shell">
-        <h1 class="page-heading" id="articles-title">Articals</h1>
+        <h1 class="page-heading" id="articles-title">Articles</h1>
         <p class="page-lead">Stories, notes and announcements from Ottaport.</p>
         <div class="article-list" id="articleList"></div>
       </div>
@@ -960,7 +976,7 @@
       <div class="footer-bottom">
         <span>&copy;ottaport 2026</span>
         <div class="footer-nav">
-          <button type="button" data-modal="support">support</button>
+          <a href="support.html">support</a>
           <a href="#terms" data-route="terms">terms</a>
           <a href="#privacy" data-route="privacy">privacy</a>
         </div>
@@ -1058,19 +1074,12 @@
 
       const $ = (selector, root = document) => root.querySelector(selector);
       const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-      const DATA_URL = 'https://raw.githubusercontent.com/ottaport/ottaport/main/data.json';
 
       const state = {
         activeView: 'home',
         menuOpen: false,
         openModal: null,
-        modalReturnFocus: null,
-        data: {
-          notification: '',
-          announcements: [],
-          works: [],
-          articles: []
-        }
+        modalReturnFocus: null
       };
 
       const supportFields = {
@@ -1093,7 +1102,7 @@
       };
 
       const pageMeta = {
-        home: { title: 'Ottaport | Films & Animation', description: 'Ottaport is an independent films and animation studio founded by Milan Naik in Kalahandi, Odisha. Explore films, animation, studio updates and articles.' },
+        home: { title: 'Ottaport | Films & Animation', description: 'Ottaport is an independent film and animation studio founded by Milan Naik in Kalahandi, Odisha. Explore original stories, creative projects and studio updates.' },
         works: { title: 'Works | Ottaport', description: 'Explore films, animation and creative projects published by Ottaport.' },
         about: { title: 'About Us | Ottaport', description: 'Learn about Ottaport, an independent creative studio founded by Milan Naik in Kalahandi, Odisha.' },
         notification: { title: 'Notifications | Ottaport', description: 'Read the latest official updates from Ottaport.' },
@@ -1108,8 +1117,6 @@
         .replaceAll('>', '&gt;')
         .replaceAll('"', '&quot;')
         .replaceAll("'", '&#039;');
-
-      const asString = value => typeof value === 'string' ? value.trim() : '';
 
       function syncScrollLock() {
         const shouldLock = state.menuOpen || Boolean(state.openModal);
@@ -1150,6 +1157,10 @@
 
         closeMenu();
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        requestAnimationFrame(() => {
+          resizeExternalFrames();
+          requestAnimationFrame(resizeExternalFrames);
+        });
       }
 
       function routeFromHash() {
@@ -1236,148 +1247,175 @@
               : 'Choose a request type to show the required fields.';
       }
 
-      function renderNotifications() {
+      function renderNotifications(newsText) {
         const target = $('#notificationList');
-        const updates = Array.isArray(state.data.announcements) ? state.data.announcements : [];
-        const fallback = state.data.notification ? [{ title: state.data.notification, content: '' }] : [];
-        const items = updates.length ? updates : fallback;
+        const blocks = String(newsText || '')
+          .trim()
+          .split(/\r?\n\s*\r?\n/)
+          .map(block => block.trim())
+          .filter(Boolean);
 
-        target.innerHTML = items.length ? items.map(item => `
-          <article class="notice-row">
-            <div class="row-meta">Ottaport update</div>
-            <div>
-              <h2>${escapeHtml(item.title || 'Update')}</h2>
-              ${item.content ? `<p>${escapeHtml(item.content)}</p>` : ''}
-            </div>
-            <span></span>
-          </article>
-        `).join('') : '<div class="empty-state">No notifications published yet.</div>';
-      }
-
-      function normalizeWork(work) {
-        return {
-          id: asString(work.id),
-          title: asString(work.title) || 'Untitled project',
-          category: asString(work.category) || 'Creative work',
-          year: asString(work.year),
-          status: asString(work.status),
-          description: asString(work.description) || asString(work.snippet),
-          image: asString(work.image),
-          video: asString(work.video),
-          url: asString(work.url) || asString(work.link)
-        };
-      }
-
-      function renderWorks() {
-        const target = $('#worksList');
-        const works = Array.isArray(state.data.works) ? state.data.works.map(normalizeWork).filter(work => work.id || work.title) : [];
-
-        if (!works.length) {
-          target.innerHTML = '<div class="empty-state">No projects published yet. New films and creative work will appear here.</div>';
-          return;
-        }
-
-        target.innerHTML = works.map(work => {
-          const meta = [work.year, work.status].filter(Boolean).join(' · ');
-          const detail = Boolean(work.description || work.image || work.video || work.url);
-          const payload = encodeURIComponent(JSON.stringify(work));
+        target.innerHTML = blocks.length ? blocks.map(block => {
+          const lines = block.split(/\r?\n/);
+          const title = lines.shift().trim() || 'Ottaport update';
+          const content = lines.join('\n').trim();
           return `
-            <article class="work-row" data-work="${payload}" data-has-detail="${detail}">
-              <div class="work-meta"><div class="work-type">${escapeHtml(work.category)}</div>${meta ? `<div>${escapeHtml(meta)}</div>` : ''}</div>
-              <div class="work-copy">
-                <h2>${escapeHtml(work.title)}</h2>
-                ${work.description ? `<p>${escapeHtml(work.description)}</p>` : ''}
+            <article class="notice-row">
+              <div class="row-meta">Ottaport update</div>
+              <div>
+                <h2>${escapeHtml(title)}</h2>
+                ${content ? `<p class="news-copy">${escapeHtml(content)}</p>` : ''}
               </div>
-              ${detail ? '<button class="work-action" type="button" data-open-work aria-label="Open project details">View project</button>' : '<span class="work-action">Published</span>'}
+              <span></span>
             </article>
           `;
-        }).join('');
+        }).join('') : '<div class="empty-state">No notifications published yet. Add your updates to news.txt.</div>';
       }
 
-      function openWork(encodedWork, trigger) {
-        let work;
-        try { work = JSON.parse(decodeURIComponent(encodedWork)); } catch { return; }
-        if (!work) return;
+      async function fileExists(path) {
+        try {
+          const response = await fetch(path, { method: 'HEAD', cache: 'no-store' });
+          return response.ok;
+        } catch {
+          return false;
+        }
+      }
 
-        $('#workModalTitle').textContent = work.title || 'Project';
-        $('#workModalMeta').textContent = [work.category, work.year, work.status].filter(Boolean).join(' · ');
-        $('#workModalBody').textContent = work.description || 'Official project details will be published here.';
+      async function showHeroMedia() {
+        const host = $('#heroMediaHost');
+        if (!host) return;
 
-        const media = $('#workModalMedia');
-        media.innerHTML = '';
-        media.hidden = true;
-        if (work.video) {
+        const showImage = async () => {
+          if (!(await fileExists('hero.png'))) {
+            host.replaceChildren();
+            return;
+          }
+          const image = document.createElement('img');
+          image.src = 'hero.png';
+          image.alt = '';
+          image.decoding = 'async';
+          image.addEventListener('error', () => image.remove(), { once: true });
+          host.replaceChildren(image);
+        };
+
+        if (await fileExists('hero.mp4')) {
           const video = document.createElement('video');
-          video.src = work.video;
-          video.controls = true;
+          video.autoplay = true;
+          video.muted = true;
+          video.loop = true;
           video.playsInline = true;
           video.preload = 'metadata';
-          media.append(video);
-          media.hidden = false;
-        } else if (work.image) {
-          const image = document.createElement('img');
-          image.src = work.image;
-          image.alt = work.title || 'Ottaport project artwork';
-          image.loading = 'lazy';
-          media.append(image);
-          media.hidden = false;
+          video.setAttribute('aria-hidden', 'true');
+          const source = document.createElement('source');
+          source.src = 'hero.mp4';
+          source.type = 'video/mp4';
+          video.append(source);
+          video.addEventListener('error', showImage, { once: true });
+          host.replaceChildren(video);
+          const playAttempt = video.play();
+          if (playAttempt && typeof playAttempt.catch === 'function') playAttempt.catch(() => {});
+        } else {
+          await showImage();
         }
-
-        const link = $('#workModalLink');
-        link.hidden = !work.url;
-        if (work.url) link.href = work.url;
-        openModal('workModal', trigger);
       }
 
-      function renderArticles() {
-        const target = $('#articleList');
-        const articles = Array.isArray(state.data.articles) ? state.data.articles : [];
-        target.innerHTML = articles.length ? articles.map(article => `
-          <article class="article-row">
-            <div class="row-meta">${escapeHtml([article.date, article.author].filter(Boolean).join(' · '))}</div>
-            <div>
-              <h2>${escapeHtml(article.title || 'Untitled article')}</h2>
-              ${article.snippet ? `<p>${escapeHtml(article.snippet)}</p>` : ''}
-              ${article.id ? `<a class="text-link" href="#articles" data-read-article="${escapeHtml(article.id)}">Read article&nbsp;↗</a>` : ''}
-            </div>
-            <span></span>
-          </article>
-        `).join('') : '<div class="empty-state">No articles published yet.</div>';
-      }
-
-      function openArticle(articleId, trigger) {
-        const articles = Array.isArray(state.data.articles) ? state.data.articles : [];
-        const article = articles.find(item => String(item.id) === String(articleId));
-        if (!article) return;
-        $('#articleModalTitle').textContent = article.title || 'Article';
-        $('#articleModalMeta').textContent = [article.date, article.author].filter(Boolean).join(' · ');
-        $('#articleModalBody').textContent = article.content || article.snippet || '';
-        openModal('articleModal', trigger);
-      }
-
-      async function loadDatabase() {
+      function resizeExternalFrame(frame) {
         try {
-          const response = await fetch(`${DATA_URL}?t=${Date.now()}`, { cache: 'no-store' });
-          if (!response.ok) throw new Error('Database request failed');
-          const fresh = await response.json();
-          state.data = {
-            notification: fresh.notification || '',
-            announcements: Array.isArray(fresh.announcements) ? fresh.announcements : [],
-            works: Array.isArray(fresh.works) ? fresh.works : Array.isArray(fresh.projects) ? fresh.projects : [],
-            articles: Array.isArray(fresh.articles) ? fresh.articles : []
-          };
+          const doc = frame.contentDocument;
+          if (!doc) return;
+          const body = doc.body;
+          const root = doc.documentElement;
+          const height = Math.max(
+            body ? body.scrollHeight : 0,
+            body ? body.offsetHeight : 0,
+            root ? root.scrollHeight : 0,
+            root ? root.offsetHeight : 0,
+            320
+          );
+          frame.style.height = `${Math.min(height + 8, 20000)}px`;
         } catch {
-          state.data = {
-            notification: '',
-            announcements: [],
-            works: [],
-            articles: []
-          };
+          // Keep the minimum frame height if the content cannot be measured.
         }
+      }
 
-        renderWorks();
-        renderNotifications();
-        renderArticles();
+      function resizeExternalFrames() {
+        $$('.external-content-frame').forEach(resizeExternalFrame);
+      }
+
+      async function loadExternalHtmlPage(filename, target, fallbackMessage, frameTitle) {
+        target.innerHTML = '<div class="empty-state">Loading content…</div>';
+        try {
+          const response = await fetch(`${filename}?v=${Date.now()}`, { cache: 'no-store' });
+          if (!response.ok) throw new Error(`${filename} was not found`);
+          const frame = document.createElement('iframe');
+          frame.className = 'external-content-frame';
+          frame.title = frameTitle;
+          frame.loading = 'eager';
+          frame.setAttribute('scrolling', 'no');
+          frame.addEventListener('load', () => {
+            try {
+              const doc = frame.contentDocument;
+              if (doc && doc.head && !doc.getElementById('ottaport-frame-defaults')) {
+                const style = doc.createElement('style');
+                style.id = 'ottaport-frame-defaults';
+                style.textContent = `
+                  html { background: transparent; }
+                  body { margin: 0; color: #4f5663; font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.65; overflow-wrap: anywhere; }
+                  img, video, iframe { max-width: 100%; }
+                  img, video { height: auto; }
+                `;
+                doc.head.append(style);
+              }
+              resizeExternalFrame(frame);
+              if (doc) {
+                doc.querySelectorAll('img, video').forEach(media => {
+                  media.addEventListener('load', () => resizeExternalFrame(frame));
+                  media.addEventListener('loadedmetadata', () => resizeExternalFrame(frame));
+                });
+                if ('ResizeObserver' in window && doc.documentElement) {
+                  const observer = new ResizeObserver(() => resizeExternalFrame(frame));
+                  observer.observe(doc.documentElement);
+                  frame._ottaportResizeObserver = observer;
+                }
+              }
+              requestAnimationFrame(() => resizeExternalFrame(frame));
+              setTimeout(() => resizeExternalFrame(frame), 250);
+            } catch {
+              // Keep the iframe responsive even if a document uses restrictive settings.
+            }
+          });
+          frame.src = `${filename}?v=${Date.now()}`;
+          target.replaceChildren(frame);
+        } catch {
+          target.innerHTML = `<div class="empty-state">${escapeHtml(fallbackMessage)}</div>`;
+        }
+      }
+
+      async function loadStaticContent() {
+        const newsPromise = (async () => {
+          try {
+            const response = await fetch(`news.txt?v=${Date.now()}`, { cache: 'no-store' });
+            if (!response.ok) throw new Error('news.txt was not found');
+            renderNotifications(await response.text());
+          } catch {
+            renderNotifications('');
+          }
+        })();
+
+        const worksPromise = loadExternalHtmlPage(
+          'work.html',
+          $('#worksList'),
+          'No work page found. Add work.html to the repository to publish your work here.',
+          'Ottaport work and projects'
+        );
+        const articlesPromise = loadExternalHtmlPage(
+          'artical.html',
+          $('#articleList'),
+          'No article page found. Add artical.html to the repository to publish your articles here.',
+          'Ottaport articles'
+        );
+
+        await Promise.all([newsPromise, worksPromise, articlesPromise]);
       }
 
       $('#menuToggle').addEventListener('click', () => setMenu(!state.menuOpen));
@@ -1386,30 +1424,8 @@
         link.addEventListener('click', () => closeMenu());
       });
 
-      $$('[data-modal="support"]').forEach(button => {
-        button.addEventListener('click', () => {
-          resetSupportForm();
-          openModal('supportModal', button);
-        });
-      });
-
       $$('[data-close]').forEach(button => {
         button.addEventListener('click', () => closeModal(button.dataset.close));
-      });
-
-      document.addEventListener('click', event => {
-        const workTrigger = event.target.closest('[data-open-work]');
-        if (workTrigger) {
-          const row = workTrigger.closest('[data-work]');
-          if (row) openWork(row.dataset.work, workTrigger);
-          return;
-        }
-
-        const reader = event.target.closest('[data-read-article]');
-        if (reader) {
-          event.preventDefault();
-          openArticle(reader.dataset.readArticle, reader);
-        }
       });
 
       $$('.modal').forEach(modal => {
@@ -1464,7 +1480,9 @@
 
       window.addEventListener('hashchange', handleRoute);
       handleRoute();
-      loadDatabase();
+      showHeroMedia();
+      loadStaticContent();
+      window.addEventListener('resize', resizeExternalFrames, { passive: true });
     })();
   </script>
 </body>
